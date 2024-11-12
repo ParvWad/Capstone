@@ -40,6 +40,10 @@ public class NavigateToDestination : MonoBehaviour
                 lineRenderer.positionCount = 0; // Clear the line if no valid path
             }
         }
+
+        // only show line and enable agent when is localized
+        lineRenderer.enabled = StateController.instance.IsLocalized();
+        agent.enabled = StateController.instance.IsLocalized();
     }
 
     void DrawPath(NavMeshPath path)
