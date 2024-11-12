@@ -6,11 +6,13 @@ public class NavigateToDestination : MonoBehaviour
     public Transform destination;          // Target destination (e.g., TV)
     private LineRenderer lineRenderer;     // LineRenderer to visualize the path
     private NavMeshPath navPath;           // NavMeshPath for path calculation
+    public NavMeshAgent agent;             // agent doing navigation
 
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         navPath = new NavMeshPath();
+        agent.isStopped = true; // he doesn't walk there like NPC :)) (but great for testing)
 
         if (lineRenderer == null)
         {
@@ -26,7 +28,7 @@ public class NavigateToDestination : MonoBehaviour
     void Update()
     {
         // Calculate the path from the AR Camera's current position to the destination
-        if (destination != null && NavMesh.CalculatePath(transform.position, destination.position, NavMesh.AllAreas, navPath))
+        if (destination != null && NavMesh.CalculatePath(agent.gameObject.transform.position, destination.position, NavMesh.AllAreas, navPath))
         {
             if (navPath.status == NavMeshPathStatus.PathComplete)
             {
